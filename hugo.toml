@@ -1,5 +1,5 @@
-baseURL = "https://rosarioiacono.github.io/datagronomist/"
-title = "johndoe"
+baseURL = "http://datagronomist.com/"
+title = "DatAgronomist"
 theme = "hugo-coder"
 languageCode = "en"
 defaultContentLanguage = "en"
