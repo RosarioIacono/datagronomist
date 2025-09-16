@@ -1,0 +1,11 @@
+.avatar img {
+  width: 250px;
+  /* adjust size */
+  height: 250px;
+  /* must match width for a circle */
+  border-radius: 50%;
+  /* makes it circular */
+  object-fit: cover;
+  /* fills the circle without distortion */ }
+
+/*# sourceMappingURL=custom.css.map */

@@ -1,0 +1,13 @@
+{
+	"version": 3,
+	"file": "custom.css",
+	"sourceRoot": "C:/Users/iacono/Documents/Sites/datagronomist",
+	"sources": [
+		"assets/scss/custom.scss"
+	],
+	"sourcesContent": [
+		".avatar img {\r\n    width: 250px;        /* adjust size */\r\n    height: 250px;       /* must match width for a circle */\r\n    border-radius: 50%;  /* makes it circular */\r\n    object-fit: cover;   /* fills the circle without distortion */\r\n    \r\n}"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,OAAO,CAAC,GAAG,CAAC;EACR,KAAK,EAAE,KAAK;EAAS,iBAAiB;EACtC,MAAM,EAAE,KAAK;EAAQ,mCAAmC;EACxD,aAAa,EAAE,GAAG;EAAG,uBAAuB;EAC5C,UAAU,EAAE,KAAK;EAAI,yCAAyC,EAEjE"
+}

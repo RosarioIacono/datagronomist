@@ -10,4 +10,8 @@ Hi, I’m **Rosario Iacono**, and I’m the person behind **Datagranomist**. I s
 
 The name “Datagranomist” is a little story in itself: it’s a mix of “data”, because I love digging into information and making sense of complex systems, and “agronomist”, reflecting my love for soil, plants, and the science of growing food.
 
+![Rosario](/static/images/rosario.jpg)
+
 Here, I write about experiments, discoveries, and ideas — from open-source seeds to vertical farming — in a way that’s honest, curious, and sometimes a bit playful. This is my space to explore, learn, and connect with others who care about the future of farming as much as I do.
+
+ 
