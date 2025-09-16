@@ -1,6 +1,4 @@
 baseURL = "https://rosarioiacono.github.io/datagronomist/"
-relativeURLs = true
-canonifyURLs = true
 title = "datagronomist"
 theme = "hugo-coder"
 languageCode = "en"
