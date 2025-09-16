@@ -3,6 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://rosarioiacono.github.io/datagronomist/authors/</loc>
+    <lastmod>2025-09-16T12:59:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
@@ -14,6 +15,28 @@
                 href="https://rosarioiacono.github.io/datagronomist/authors/"
                 />
   </url><url>
+    <loc>https://rosarioiacono.github.io/datagronomist/</loc>
+    <lastmod>2025-09-16T12:59:48+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt-br"
+                href="https://rosarioiacono.github.io/datagronomist/pt-br/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://rosarioiacono.github.io/datagronomist/"
+                />
+  </url><url>
+    <loc>https://rosarioiacono.github.io/datagronomist/posts/</loc>
+    <lastmod>2025-09-16T12:59:48+02:00</lastmod>
+  </url><url>
+    <loc>https://rosarioiacono.github.io/datagronomist/authors/rosario/</loc>
+    <lastmod>2025-09-16T12:59:48+02:00</lastmod>
+  </url><url>
+    <loc>https://rosarioiacono.github.io/datagronomist/posts/my-first-post/</loc>
+    <lastmod>2025-09-16T12:59:48+02:00</lastmod>
+  </url><url>
     <loc>https://rosarioiacono.github.io/datagronomist/categories/</loc>
     <xhtml:link
                 rel="alternate"
@@ -24,18 +47,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://rosarioiacono.github.io/datagronomist/categories/"
-                />
-  </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/"
                 />
   </url><url>
     <loc>https://rosarioiacono.github.io/datagronomist/series/</loc>

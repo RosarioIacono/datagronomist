@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on johndoe</title>
-    <link>http://www.example.com/posts/</link>
-    <description>Recent content in Posts on johndoe</description>
+    <title>Posts on datagronomist</title>
+    <link>https://rosarioiacono.github.io/datagronomist/posts/</link>
+    <description>Recent content in Posts on datagronomist</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 02 Sep 2025 14:08:33 +0200</lastBuildDate>
-    <atom:link href="http://www.example.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Sep 2025 12:59:48 +0200</lastBuildDate>
+    <atom:link href="https://rosarioiacono.github.io/datagronomist/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
-      <link>http://www.example.com/posts/my-first-post/</link>
-      <pubDate>Tue, 02 Sep 2025 14:08:33 +0200</pubDate>
-      <guid>http://www.example.com/posts/my-first-post/</guid>
+      <title>This is my first post</title>
+      <link>https://rosarioiacono.github.io/datagronomist/posts/my-first-post/</link>
+      <pubDate>Tue, 16 Sep 2025 12:59:48 +0200</pubDate>
+      <guid>https://rosarioiacono.github.io/datagronomist/posts/my-first-post/</guid>
       <description></description>
     </item>
   </channel>
