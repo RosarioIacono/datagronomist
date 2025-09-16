@@ -1,4 +1,4 @@
-baseURL = "http://www.datagronomist.com"
+baseURL = "datagronomist.com"
 title = "datagronomist"
 theme = "hugo-coder"
 languageCode = "en"
