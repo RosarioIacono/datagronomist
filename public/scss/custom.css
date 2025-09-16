@@ -1,0 +1,12 @@
+/* Force square avatar */
+.avatar img {
+  width: 300px;
+  /* adjust as needed */
+  height: 300px;
+  /* match width */
+  border-radius: 50%;
+  /* circular, optional */
+  object-fit: cover;
+  /* fills square without distortion */ }
+
+/*# sourceMappingURL=custom.css.map */

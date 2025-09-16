@@ -1,0 +1,13 @@
+{
+	"version": 3,
+	"file": "custom.css",
+	"sourceRoot": "C:/Users/iacono/Documents/Sites/datagronomist",
+	"sources": [
+		"assets/scss/custom.scss"
+	],
+	"sourcesContent": [
+		"\r\n/* Force square avatar */\r\n.avatar img {\r\n    width: 300px;       /* adjust as needed */\r\n    height: 300px;      /* match width */\r\n    border-radius: 50%; /* circular, optional */\r\n    object-fit: cover;  /* fills square without distortion */\r\n}"
+	],
+	"names": [],
+	"mappings": "AACA,yBAAyB;AACzB,AAAA,OAAO,CAAC,GAAG,CAAC;EACR,KAAK,EAAE,KAAK;EAAQ,sBAAsB;EAC1C,MAAM,EAAE,KAAK;EAAO,iBAAiB;EACrC,aAAa,EAAE,GAAG;EAAE,wBAAwB;EAC5C,UAAU,EAAE,KAAK;EAAG,qCAAqC,EAC5D"
+}
