@@ -6,20 +6,8 @@ aliases = ["about-us", "about-hugo", "contact"]
 author = "Hugo Authors"
 +++
 
-Written in Go, Hugo is an open source static site generator available under the [Apache Licence 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
+Hi, I’m **Rosario Iacono**, and I’m the person behind **Datagranomist**. I started this blog as a way to share my journey at the intersection of **data and agriculture** — two worlds that fascinate me and, I believe, hold the keys to a more sustainable future.
 
-Hugo makes use of a variety of open source projects including:
+The name “Datagranomist” is a little story in itself: it’s a mix of “data”, because I love digging into information and making sense of complex systems, and “agronomist”, reflecting my love for soil, plants, and the science of growing food.
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
-
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
-
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
-
-Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
-
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+Here, I write about experiments, discoveries, and ideas — from open-source seeds to vertical farming — in a way that’s honest, curious, and sometimes a bit playful. This is my space to explore, learn, and connect with others who care about the future of farming as much as I do.
