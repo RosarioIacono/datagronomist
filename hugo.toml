@@ -1,4 +1,4 @@
-baseURL = "rosarioiacono.github.io/datagronomist/"
+baseURL = "https://rosarioiacono.github.io/datagronomist/"
 title = "datagronomist"
 theme = "hugo-coder"
 languageCode = "en"
