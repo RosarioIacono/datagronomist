@@ -2,64 +2,64 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://datagronomist.com/authors/</loc>
+    <loc>datagronomist.com/authors/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://datagronomist.com/pt-br/authors/"
+                href="datagronomist.com/pt-br/authors/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.com/authors/"
+                href="datagronomist.com/authors/"
                 />
   </url><url>
-    <loc>https://datagronomist.com/categories/</loc>
+    <loc>datagronomist.com/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://datagronomist.com/pt-br/categories/"
+                href="datagronomist.com/pt-br/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.com/categories/"
+                href="datagronomist.com/categories/"
                 />
   </url><url>
-    <loc>https://datagronomist.com/</loc>
+    <loc>datagronomist.com/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://datagronomist.com/pt-br/"
+                href="datagronomist.com/pt-br/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.com/"
+                href="datagronomist.com/"
                 />
   </url><url>
-    <loc>https://datagronomist.com/series/</loc>
+    <loc>datagronomist.com/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://datagronomist.com/pt-br/series/"
+                href="datagronomist.com/pt-br/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.com/series/"
+                href="datagronomist.com/series/"
                 />
   </url><url>
-    <loc>https://datagronomist.com/tags/</loc>
+    <loc>datagronomist.com/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://datagronomist.com/pt-br/tags/"
+                href="datagronomist.com/pt-br/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.com/tags/"
+                href="datagronomist.com/tags/"
                 />
   </url>
 </urlset>
