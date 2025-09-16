@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ .Site.Title }}</h1>
+  <p>{{ .Site.Params.description }}</p>
+  <p>Made by {{ .Site.Params.author }}</p>
+</section>
+
+<section class="features">
+  <ul>
+    {{ range .Site.Params.features }}
+      <li>{{ . }}</li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

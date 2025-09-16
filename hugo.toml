@@ -1,4 +1,4 @@
-baseURL = "http://datagronomist.com/"
+baseURL = "datagronomist.com/"
 title = "DatAgronomist"
 theme = "hugo-coder"
 languageCode = "en"
@@ -23,7 +23,7 @@ noClasses = false
 unsafe = true
 
 [params]
-author = "John Doe"
+author = "Massa Peppi Ciuri"
 # license = '<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA-4.0</a>'
 description = "Rosario Iacono personal website"
 keywords = "blog,developer,personal"
