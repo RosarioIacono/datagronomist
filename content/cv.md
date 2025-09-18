@@ -6,6 +6,9 @@ description: "Rosario Iacono – Curriculum Vitae"
 image: images/cv-banner.jpg
 ---
 
+![Rosario Iacono](/datagronomist/images/rosario.jpg)
+
+
 ## Rosario Iacono  
 
 **Researcher | Agronomist | Open Source Advocate**
