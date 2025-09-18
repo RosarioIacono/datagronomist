@@ -2,116 +2,116 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://rosarioiacono.github.io/datagronomist/podcast/</loc>
+    <loc>http://localhost:1313/datagronomist/podcast/</loc>
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/cv/</loc>
+    <loc>http://localhost:1313/datagronomist/cv/</loc>
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/authors/</loc>
+    <loc>http://localhost:1313/datagronomist/authors/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/authors/"
+                href="http://localhost:1313/datagronomist/pt-br/authors/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/authors/"
+                href="http://localhost:1313/datagronomist/authors/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/</loc>
+    <loc>http://localhost:1313/datagronomist/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/"
+                href="http://localhost:1313/datagronomist/pt-br/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/"
+                href="http://localhost:1313/datagronomist/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/posts/</loc>
+    <loc>http://localhost:1313/datagronomist/posts/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/authors/rosario/</loc>
+    <loc>http://localhost:1313/datagronomist/authors/rosario/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/posts/my-first-post/</loc>
+    <loc>http://localhost:1313/datagronomist/posts/my-first-post/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/about/</loc>
+    <loc>http://localhost:1313/datagronomist/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/about/"
+                href="http://localhost:1313/datagronomist/pt-br/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/about/"
+                href="http://localhost:1313/datagronomist/about/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/categories/</loc>
+    <loc>http://localhost:1313/datagronomist/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/categories/"
+                href="http://localhost:1313/datagronomist/pt-br/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/categories/"
+                href="http://localhost:1313/datagronomist/categories/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/contact/</loc>
+    <loc>http://localhost:1313/datagronomist/contact/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/contact/"
+                href="http://localhost:1313/datagronomist/pt-br/contact/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/contact/"
+                href="http://localhost:1313/datagronomist/contact/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/projects/</loc>
+    <loc>http://localhost:1313/datagronomist/projects/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/projects/"
+                href="http://localhost:1313/datagronomist/pt-br/projects/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/projects/"
+                href="http://localhost:1313/datagronomist/projects/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/series/</loc>
+    <loc>http://localhost:1313/datagronomist/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/series/"
+                href="http://localhost:1313/datagronomist/pt-br/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/series/"
+                href="http://localhost:1313/datagronomist/series/"
                 />
   </url><url>
-    <loc>https://rosarioiacono.github.io/datagronomist/tags/</loc>
+    <loc>http://localhost:1313/datagronomist/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="https://rosarioiacono.github.io/datagronomist/pt-br/tags/"
+                href="http://localhost:1313/datagronomist/pt-br/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://rosarioiacono.github.io/datagronomist/tags/"
+                href="http://localhost:1313/datagronomist/tags/"
                 />
   </url>
 </urlset>
