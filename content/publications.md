@@ -8,7 +8,7 @@ image: images/cv-banner.jpg
 
 <div style="display: flex; align-items: center; margin-bottom: 2em;">
   <img src="/datagronomist/images/rosario.jpg" alt="Rosario Iacono"
-       style="width:150px; height:280px; border-radius:10%; object-fit:cover; margin-right:1em;">
+       style="width:200px; height:280px; border-radius:10%; object-fit:cover; margin-right:1em;">
 
   <div>
     <h2 style="margin: 0;">Rosario Iacono</h2>
