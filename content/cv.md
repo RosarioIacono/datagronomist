@@ -1,12 +1,13 @@
 ---
-title: "CV"
+title: "My Curriculum"
 menu: main
 weight: 70
 description: "Rosario Iacono – Curriculum Vitae"
 image: images/cv-banner.jpg
 ---
 
-![Rosario Iacono](/datagronomist/images/rosario.jpg)
+<img src="/datagronomist/images/rosario.jpg" alt="Rosario Iacono"
+     style="width:250px; border-radius:10%; display:block; margin: 0 auto 1em auto; object-fit:cover;">
 
 
 ## Rosario Iacono  
