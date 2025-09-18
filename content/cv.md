@@ -6,18 +6,23 @@ description: "Rosario Iacono – Curriculum Vitae"
 image: images/cv-banner.jpg
 ---
 
-<img src="/datagronomist/images/rosario.jpg" alt="Rosario Iacono"
-     style="width:250px; border-radius:10%; display:block; margin: 0 auto 1em auto; object-fit:cover;">
+<div style="display: flex; align-items: center; margin-bottom: 1em;">
+  <img src="/datagronomist/images/rosario.jpg" alt="Rosario Iacono"
+       style="width:200px; height:280px; border-radius:10%; object-fit:cover; margin-right:1em;">
 
-
-## Rosario Iacono  
-
-**Researcher | Agronomist | Open Source Advocate**
+  <div>
+    <h2 style="margin: 0;">Rosario Iacono</h2>
+    <p style="margin: 0; font-weight: bold;">Researcher | Agronomist | Open Source Advocate</p>
+  </div>
+</div>
 
 ### Education
 - **PhD in Biological Sciences**, Aberystwyth University, UK (2021)  
 - **MSc in Agricultural Sciences and Technologies**, University of Catania, Italy (2010)  
 - **BSc in Agricultural Sciences and Technologies in Tropical and Subtropical Areas**, University of Catania, Italy (2006)  
+
+
+---
 
 ### Professional Experience
 - **Postdoctoral Researcher**, Helmholtz Centre for Environmental Research (UFZ), Germany (2023–Present)  
