@@ -1,0 +1,106 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+
+{{ define "content" }}
+<section class="container page">
+  <article>
+    <header>
+      <h1 class="title">
+        <a class="title-link" href="{{ .Permalink | safeURL }}">
+          {{ .Title }}
+        </a>
+      </h1>
+    </header>
+
+    {{ .Content }}
+
+    {{ if eq .RelPermalink "/contact/" }}
+    <!-- Two Column Layout -->
+    <div class="contact-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 2rem;">
+      
+      <!-- Left Column: Social Links -->
+      <div class="social-links">
+        <h3 style="margin-bottom: 1.5rem;">Get in Touch</h3>
+        <p style="margin-bottom: 2rem;">Feel free to reach out through any of these platforms:</p>
+        
+        <div class="social-list" style="display: flex; flex-direction: column; gap: 1rem;">
+          <!-- Email -->
+          <a href="mailto:your-email@example.com" class="social-link" style="display: flex; align-items: center; padding: 1rem; background: #2d3748; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: background 0.3s;">
+            <i class="fas fa-envelope" style="margin-right: 1rem; width: 20px;"></i>
+            <span>Email</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" class="social-link" style="display: flex; align-items: center; padding: 1rem; background: #2d3748; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: background 0.3s;">
+            <i class="fab fa-linkedin" style="margin-right: 1rem; width: 20px;"></i>
+            <span>LinkedIn</span>
+          </a>
+
+          <!-- Discord -->
+          <a href="https://discord.com/users/yourusername" target="_blank" class="social-link" style="display: flex; align-items: center; padding: 1rem; background: #2d3748; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: background 0.3s;">
+            <i class="fab fa-discord" style="margin-right: 1rem; width: 20px;"></i>
+            <span>Discord</span>
+          </a>
+
+          <!-- Telegram -->
+          <a href="https://t.me/yourusername" target="_blank" class="social-link" style="display: flex; align-items: center; padding: 1rem; background: #2d3748; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: background 0.3s;">
+            <i class="fab fa-telegram" style="margin-right: 1rem; width: 20px;"></i>
+            <span>Telegram</span>
+          </a>
+
+          <!-- BlueSky -->
+          <a href="https://bsky.app/profile/yourhandle.bsky.social" target="_blank" class="social-link" style="display: flex; align-items: center; padding: 1rem; background: #2d3748; border-radius: 8px; text-decoration: none; color: #e2e8f0; transition: background 0.3s;">
+            <i class="fas fa-cloud" style="margin-right: 1rem; width: 20px;"></i>
+            <span>BlueSky</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Contact Form -->
+      <div class="contact-form">
+        <h3 style="margin-bottom: 1.5rem;">Send a Message</h3>
+        <form name="contact" method="POST" netlify-honeypot="bot-field" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          
+          <p style="display: none;">
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+          </p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Name:</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #4a5568; border-radius: 4px; background: #2d3748; color: white;">
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #4a5568; border-radius: 4px; background: #2d3748; color: white;">
+          </div>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Message:</label>
+            <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.75rem; border: 1px solid #4a5568; border-radius: 4px; background: #2d3748; color: white;"></textarea>
+          </div>
+          
+          <button type="submit" style="background: #4a5568; color: white; padding: 0.75rem 2rem; border: none; border-radius: 4px; cursor: pointer; width: 100%;">Send Message</button>
+        </form>
+      </div>
+    </div>
+
+    <style>
+    .social-link:hover {
+      background: #4a5568 !important;
+      text-decoration: none !important;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+      }
+    }
+    </style>
+    {{ end }}
+  </article>
+</section>
+{{ end }}
