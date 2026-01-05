@@ -51,5 +51,3 @@ The project originated during my time at UFZ and remains active, with ongoing an
 
 ---
 
-This page reflects work in progress.  
-Projects evolve, overlap, and sometimes return in new forms.
