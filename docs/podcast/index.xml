@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Podcast on datagronomist</title>
-    <link>https://datagronomist.netlify.app/podcast/</link>
+    <link>http://localhost:1313/podcast/</link>
     <description>Recent content in Podcast on datagronomist</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <atom:link href="https://datagronomist.netlify.app/podcast/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/podcast/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

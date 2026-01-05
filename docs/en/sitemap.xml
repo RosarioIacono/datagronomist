@@ -2,95 +2,95 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://datagronomist.netlify.app/podcast/</loc>
+    <loc>http://localhost:1313/podcast/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/cv/</loc>
+    <loc>http://localhost:1313/cv/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/publications/</loc>
+    <loc>http://localhost:1313/publications/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/authors/</loc>
+    <loc>http://localhost:1313/authors/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://datagronomist.netlify.app/de/authors/"
+                href="http://localhost:1313/de/authors/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.netlify.app/authors/"
+                href="http://localhost:1313/authors/"
                 />
   </url><url>
-    <loc>https://datagronomist.netlify.app/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://datagronomist.netlify.app/de/"
+                href="http://localhost:1313/de/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.netlify.app/"
+                href="http://localhost:1313/"
                 />
   </url><url>
-    <loc>https://datagronomist.netlify.app/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://datagronomist.netlify.app/authors/rosario/</loc>
+    <loc>http://localhost:1313/authors/rosario/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://datagronomist.netlify.app/posts/my-first-post/</loc>
+    <loc>http://localhost:1313/posts/my-first-post/</loc>
     <lastmod>2025-09-16T12:59:48+02:00</lastmod>
   </url><url>
-    <loc>https://datagronomist.netlify.app/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://datagronomist.netlify.app/about.pt-br/</loc>
+    <loc>http://localhost:1313/about.pt-br/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://datagronomist.netlify.app/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://datagronomist.netlify.app/de/categories/"
+                href="http://localhost:1313/de/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.netlify.app/categories/"
+                href="http://localhost:1313/categories/"
                 />
   </url><url>
-    <loc>https://datagronomist.netlify.app/contact/</loc>
+    <loc>http://localhost:1313/contact/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/contact/</loc>
+    <loc>http://localhost:1313/contact/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/projects/</loc>
+    <loc>http://localhost:1313/projects/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/projects/</loc>
+    <loc>http://localhost:1313/projects/</loc>
   </url><url>
-    <loc>https://datagronomist.netlify.app/series/</loc>
+    <loc>http://localhost:1313/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://datagronomist.netlify.app/de/series/"
+                href="http://localhost:1313/de/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.netlify.app/series/"
+                href="http://localhost:1313/series/"
                 />
   </url><url>
-    <loc>https://datagronomist.netlify.app/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="de"
-                href="https://datagronomist.netlify.app/de/tags/"
+                href="http://localhost:1313/de/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://datagronomist.netlify.app/tags/"
+                href="http://localhost:1313/tags/"
                 />
   </url>
 </urlset>
