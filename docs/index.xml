@@ -62,14 +62,13 @@
       <link>http://localhost:1313/projects/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/</guid>
-      <description>&lt;p&gt;Nothing to see here&amp;hellip; Move along!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Projetos</title>
-      <link>http://localhost:1313/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/</guid>
-      <description>&lt;p&gt;Nada para ver aqui.. Circulando!&lt;/p&gt;</description>
+      <description>&lt;p&gt;I work across research, public engagement, and interdisciplinary practice.&lt;br&gt;
+Below is a selection of ongoing and recent projects that reflect this trajectory.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;neuland&#34;&gt;Neuland&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Scientific Coordinator — main role&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;An interdisciplinary initiative at the Leibniz Institute of Plant Genetics and Crop Plant Research (IPK), developed in collaboration with Burg Giebichenstein University of Art and Design Halle.&lt;br&gt;
+Neuland explores new ways of connecting plant science, design, and public discourse, with a focus on knowledge transfer, reflection, and societal engagement.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

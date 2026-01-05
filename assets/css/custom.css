@@ -1,1 +1,92 @@
+/* ===========================
+   Datagronomist — PaperMod typography
+   Option B: Source Serif 4 (body) + JetBrains Mono (headings/meta)
+   Drop-in for: assets/css/extended/custom.css
+   =========================== */
+
+/* 1) Load fonts (Google Fonts). If you self-host fonts later, remove these imports. */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&display=swap');
+
+/* 2) Define font tokens */
+:root {
+  --dg-font-body: "Source Serif 4", serif;
+  --dg-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Comfortable long-form reading defaults */
+  --dg-body-size: 18px;
+  --dg-body-line: 1.75;
+}
+
+/* 3) Body text: readable, calm */
+html {
+  font-size: var(--dg-body-size);
+}
+
+body {
+  font-family: var(--dg-font-body);
+  line-height: var(--dg-body-line);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+
+/* 4) Headings: mono for the “typewriter / lab notebook” vibe */
+h1, h2, h3, h4, h5, h6,
+.post-title,
+.page-header h1 {
+  font-family: var(--dg-font-mono);
+  letter-spacing: -0.01em;
+}
+
+/* 5) Navigation + small UI: mono (subtle identity consistency) */
+.header,
+.logo,
+.nav,
+.menu a,
+.breadcrumbs,
+.post-meta,
+.post-description,
+.archive-year,
+.pagination,
+#searchInput {
+  font-family: var(--dg-font-mono);
+}
+
+/* 6) Content width & rhythm (PaperMod-friendly) */
+.post-content {
+  line-height: var(--dg-body-line);
+}
+
+/* 7) Make paragraphs breathe */
+.post-content p {
+  margin: 0 0 1em;
+}
+
+/* 8) Quotes: serif but a touch more “essay” */
+.post-content blockquote {
+  font-style: italic;
+}
+
+/* 9) Code blocks: keep mono and improve readability */
+code, pre, kbd, samp {
+  font-family: var(--dg-font-mono);
+  font-size: 0.95em;
+}
+
+pre code {
+  font-size: 0.9em;
+  line-height: 1.6;
+}
+
+/* 10) Optional: a slightly more “typewritten” feel for meta separators */
+.post-meta,
+.breadcrumbs {
+  letter-spacing: 0.01em;
+}
+
+/* 11) Optional: adjust on small screens */
+@media (max-width: 768px) {
+  html { font-size: 17px; }
+  h1 { letter-spacing: -0.015em; }
+}
 
