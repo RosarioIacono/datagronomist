@@ -1,8 +1,8 @@
 ---
-title: "Curriculum"
+title: "Profile"
 menu: main
 weight: 70
-description: "Rosario Iacono – Curriculum Vitae"
+description: "Background, roles, and ongoing work"
 image: images/cv-banner.jpg
 ---
 ## Rosario Iacono  
