@@ -10,8 +10,6 @@ image: images/cv-banner.jpg
 
 ---
 
-## Profile
-
 I am a scientist and scientific coordinator working at the intersection of **plant science, agriculture, public engagement, and interdisciplinary collaboration**.  
 My work combines active research experience with a strong focus on **knowledge transfer**, science communication, and the translation of complex research into formats that foster dialogue between science and society.
 
