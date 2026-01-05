@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on datagronomist</title>
-    <link>http://localhost:1313/datagronomist/authors/</link>
+    <link>https://datagronomist.netlify.app/authors/</link>
     <description>Recent content in Authors on datagronomist</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 16 Sep 2025 12:59:48 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/datagronomist/authors/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://datagronomist.netlify.app/authors/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rosario</title>
-      <link>http://localhost:1313/datagronomist/authors/rosario/</link>
+      <link>https://datagronomist.netlify.app/authors/rosario/</link>
       <pubDate>Tue, 16 Sep 2025 12:59:48 +0200</pubDate>
-      <guid>http://localhost:1313/datagronomist/authors/rosario/</guid>
+      <guid>https://datagronomist.netlify.app/authors/rosario/</guid>
       <description></description>
     </item>
   </channel>
