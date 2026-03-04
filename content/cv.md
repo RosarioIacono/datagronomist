@@ -17,6 +17,7 @@ My work combines active research experience with a strong focus on **knowledge t
 
 ## Education
 
+- **Associate Fellowship of the Higher Education Academy (AFHEA)**, Advance HE  
 - **PhD in Biological Sciences**, Aberystwyth University, UK (2021)  
 - **MSc in Agricultural Sciences and Technologies**, University of Catania, Italy (2010)  
 - **BSc in Agricultural Sciences and Technologies (Tropical & Subtropical Systems)**, University of Catania, Italy (2006)
@@ -35,6 +36,9 @@ My work combines active research experience with a strong focus on **knowledge t
   - Long-term soil fungal and microbial community analyses  
   - Plant–microbe interactions, land-use effects, and controlled-environment experiments (hydroponic tomato systems)  
   - Designed and delivered a PhD-level course on theatre techniques for scientific communication  
+
+- **Managing Editor**, International Mycorrhiza Society Newsletter (2024–2025)  
+  - Editorial coordination of the IMS Newsletter, connecting mycorrhiza researchers internationally  
 
 - **Research Fellow**, University of Catania, Italy (2023)  
   - Modelling agrivoltaic impacts on crop performance  
@@ -58,10 +62,22 @@ My work combines active research experience with a strong focus on **knowledge t
 
 ---
 
+## Fellowships & Accelerators
+
+- **EIT Food Innovator Fellowship**, EIT Food (2024–2025)  
+  - Selected as an EIT Food Innovator Fellow for the development of Anthea, an open-source seed system for vertical farming and controlled-environment agriculture  
+  - **Winner of the EIT Food Innovator Fellowship final pitch**
+
+- **Weinberg Campus Accelerator Program**, Technologiepark Weinberg Campus, Halle (Saale) (2024–2025)  
+  - Participated in the startup acceleration programme at Weinberg Campus for the development and commercialisation of Anthea  
+
+---
+
 ## Science Communication & Public Engagement
 
+- Science journalist, **Intersezioni** (2013–2020) — writing agriculture and molecular biology review articles for a broad audience  
 - Course instructor: **Theatre techniques for scientific communication** (UFZ PhD programme)  
-- Podcast in preparation on scientists’ career paths, biographies, and transitions  
+- Podcast in preparation on scientists' career paths, biographies, and transitions  
 - Finalist, **Three Minute Thesis Competition** (Aberystwyth University, 2017)  
 - Organising committee member, **World Food Day** (Aberystwyth, 2018)  
 - Theatre acting and training (Milan, London, Aberystwyth, 2012–2019)
@@ -96,4 +112,3 @@ My work combines active research experience with a strong focus on **knowledge t
 - International Mycorrhiza Society (since 2024)  
 - Association for Vertical Farming (since 2023)  
 - Royal Society of Biology (2020–2022)
-
