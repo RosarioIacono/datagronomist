@@ -7,7 +7,7 @@ tags: ["open source", "mycodo", "tasmota", "personal", "growing"]
 author: "Rosario Iacono"
 
 cover:
-  image: "cover.jpg"          # place your photo at: content/posts/seeds-code-what-we-pass-down/cover.jpg
+  image: "cover.png"          # place your photo at: content/posts/seeds-code-what-we-pass-down/cover.jpg
   alt: "Raspberry Pi and BME688 sensor next to seedling trays in a cellar growing setup"
   caption: "The cellar setup — Raspberry Pi 4B, BME688, and the first seedlings of the season"
   relative: true               # keeps the image path relative to the post folder
