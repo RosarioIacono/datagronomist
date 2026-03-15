@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Frostwächter Halle — Inversionsfrost-Vorhersage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --parchment:#f4efe4; --parchment-dark:#ede5d3;
+      --ink:#1e140a; --ink-light:#5a4232;
+      --moss:#4a7c59; --moss-light:#6a9e79; --moss-pale:#d4e8da;
+      --ochre:#c8882a; --bark:#7a4e2d;
+      --danger-red:#b83232; --danger-orange:#d4621a; --warn-yellow:#c9a020;
+      --card-border:rgba(90,66,50,0.15);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--parchment);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;min-height:100vh;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.6;}
+
+    /* HEADER */
+    header{background:var(--ink);color:var(--parchment);padding:1.75rem 1.5rem 2.5rem;text-align:center;position:relative;}
+    header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:24px;background:var(--parchment);clip-path:polygon(0 100%,100% 100%,100% 0,50% 100%,0 0);}
+    .header-eyebrow{font-size:.7rem;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--moss-light);margin-bottom:.5rem;}
+    header h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--parchment);}
+    header h1 em{font-style:italic;color:var(--moss-light);}
+    .header-sub{margin-top:.6rem;font-size:.85rem;color:rgba(244,239,228,.6);font-weight:300;}
+
+    /* LANG TOGGLE */
+    #lang-btn{position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:var(--parchment);padding:.3rem .75rem;border-radius:4px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;}
+    #lang-btn:hover{background:rgba(255,255,255,.2);}
+
+    main{max-width:920px;margin:0 auto;padding:2rem 1.25rem 4rem;}
+    .update-time{font-size:.72rem;color:var(--ink-light);opacity:.55;text-align:right;margin-bottom:1rem;}
+
+    /* ALERT */
+    #alert-banner{display:none;border-radius:6px;padding:1rem 1.25rem;margin-bottom:1.5rem;border-left:4px solid currentColor;font-size:.88rem;animation:slideIn .4s ease;}
+    @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+    /* TONIGHT CARD */
+    .tonight-card{background:var(--ink);color:var(--parchment);border-radius:10px;padding:1.75rem;margin-bottom:1.75rem;position:relative;overflow:hidden;}
+    .tonight-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(74,124,89,.2) 0%,transparent 70%);pointer-events:none;}
+    .tonight-label{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--moss-light);margin-bottom:.3rem;}
+    .tonight-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.25rem;}
+    .risk-gauge{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;}
+    .risk-dial{width:100px;height:100px;flex-shrink:0;position:relative;}
+    .risk-dial svg{width:100%;height:100%;}
+    .risk-number{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .risk-score-big{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1;}
+    .risk-score-max{font-size:.65rem;opacity:.5;}
+    .risk-details{flex:1;min-width:180px;}
+    .risk-label-big{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;line-height:1.1;margin-bottom:.3rem;}
+    .risk-advice{font-size:.82rem;opacity:.75;line-height:1.5;}
+    .tonight-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin-top:1.25rem;}
+    .metric-chip{background:rgba(244,239,228,.08);border:1px solid rgba(244,239,228,.1);border-radius:8px;padding:.6rem .8rem;}
+    .metric-chip .label{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin-bottom:.2rem;}
+    .metric-chip .value{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;}
+    .metric-chip .value .unit{font-size:.68rem;font-weight:400;opacity:.6;}
+    /* soil delta highlight */
+    .metric-chip.soil-alert .value{color:#d4621a;}
+
+    /* SECTION HEADINGS */
+    .section-heading{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+    .section-heading::after{content:'';flex:1;height:1px;background:var(--card-border);}
+
+    /* 7-DAY GRID */
+    .forecast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:.6rem;margin-bottom:2rem;}
+    .day-card{background:#fff;border:1px solid var(--card-border);border-radius:8px;padding:.85rem .7rem;text-align:center;cursor:default;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden;}
+    .day-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(30,20,10,.1);}
+    .day-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .day-card.risk-none::before{background:var(--moss);}
+    .day-card.risk-low::before{background:#8ab84e;}
+    .day-card.risk-moderate::before{background:var(--warn-yellow);}
+    .day-card.risk-high::before{background:var(--danger-orange);}
+    .day-card.risk-extreme::before{background:var(--danger-red);}
+    .day-name{font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.3rem;}
+    .day-temp-min{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;line-height:1;}
+    .day-temp-unit{font-size:.72rem;font-weight:400;opacity:.6;}
+    .day-soil{font-size:.65rem;opacity:.5;margin-top:.1rem;}
+    .day-risk-badge{margin-top:.35rem;font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .35rem;border-radius:3px;display:inline-block;}
+    .risk-none .day-risk-badge{background:var(--moss-pale);color:var(--moss);}
+    .risk-low .day-risk-badge{background:#e8f4d4;color:#5a7a20;}
+    .risk-moderate .day-risk-badge{background:#fdf3c8;color:#8a6c00;}
+    .risk-high .day-risk-badge{background:#fde8d0;color:#a04000;}
+    .risk-extreme .day-risk-badge{background:#fdd8d8;color:#8a0000;}
+    .day-icons{display:flex;justify-content:center;gap:3px;margin-top:.3rem;font-size:.7rem;opacity:.6;}
+
+    /* CHARTS */
+    .chart-container{background:#fff;border:1px solid var(--card-border);border-radius:10px;padding:1.25rem;margin-bottom:2rem;}
+    .chart-wrapper{position:relative;height:200px;}
+    .chart-tabs{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+    .chart-tab{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border-radius:4px;border:1px solid var(--card-border);background:var(--parchment-dark);color:var(--ink-light);cursor:pointer;transition:all .15s;}
+    .chart-tab.active{background:var(--ink);color:var(--parchment);border-color:var(--ink);}
+
+    /* HISTORICAL */
+    .historical-note{font-size:.78rem;color:var(--ink-light);opacity:.7;margin-bottom:.75rem;font-style:italic;}
+
+    /* CONDITIONS */
+    .conditions-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:2rem;}
+    @media(min-width:600px){.conditions-grid{grid-template-columns:repeat(4,1fr);}}
+    .condition-bar{background:#fff;border:1px solid var(--card-border);border-radius:8px;padding:.85rem .9rem;}
+    .cond-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:var(--ink-light);margin-bottom:.35rem;}
+    .cond-value{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;}
+    .cond-hint{font-size:.66rem;margin-top:.1rem;opacity:.8;}
+    .cond-bar-track{height:4px;background:var(--parchment-dark);border-radius:2px;margin-top:.4rem;overflow:hidden;}
+    .cond-bar-fill{height:100%;border-radius:2px;transition:width .6s ease;}
+
+    /* INFO BOX */
+    .info-box{background:var(--parchment-dark);border:1px solid var(--card-border);border-left:3px solid var(--moss);border-radius:6px;padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.84rem;line-height:1.7;color:var(--ink-light);}
+    .info-box h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--ink);margin-bottom:.5rem;}
+    .info-box strong{color:var(--ink);}
+    .info-box ul{margin:.5rem 0 0 1rem;list-style:disc;}
+    .info-box li{margin-bottom:.25rem;}
+
+    /* EMAIL SIGNUP */
+    .signup-box{background:var(--ink);color:var(--parchment);border-radius:10px;padding:1.75rem;margin-bottom:2rem;}
+    .signup-box h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.4rem;}
+    .signup-box p{font-size:.84rem;opacity:.7;margin-bottom:1.25rem;line-height:1.6;}
+    .signup-form{display:flex;gap:.65rem;flex-wrap:wrap;}
+    .signup-input{flex:1;min-width:200px;padding:.65rem 1rem;border-radius:6px;border:1px solid rgba(244,239,228,.2);background:rgba(244,239,228,.08);color:var(--parchment);font-family:'Source Serif 4',serif;font-size:.9rem;outline:none;transition:border .2s;}
+    .signup-input::placeholder{opacity:.4;}
+    .signup-input:focus{border-color:var(--moss-light);}
+    .signup-select{flex:0 0 auto;padding:.65rem 1rem;border-radius:6px;border:1px solid rgba(244,239,228,.2);background:rgba(244,239,228,.08);color:var(--parchment);font-family:'Source Serif 4',serif;font-size:.85rem;cursor:pointer;}
+    .signup-select option{background:var(--ink);}
+    .signup-btn{padding:.65rem 1.5rem;background:var(--moss);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:600;transition:background .2s;}
+    .signup-btn:hover{background:var(--moss-light);}
+    .signup-success{display:none;padding:.75rem 1rem;background:rgba(74,124,89,.25);border:1px solid var(--moss);border-radius:6px;font-size:.85rem;color:var(--moss-light);}
+    .signup-error{display:none;padding:.75rem 1rem;background:rgba(184,50,50,.2);border:1px solid #b83232;border-radius:6px;font-size:.85rem;color:#f4aca8;margin-top:.5rem;}
+    .privacy-note{font-size:.68rem;opacity:.4;margin-top:.75rem;line-height:1.5;}
+
+    /* LOADING / ERROR */
+    .loading-state{text-align:center;padding:3rem 1rem;color:var(--ink-light);}
+    .spinner{width:36px;height:36px;border:2px solid var(--moss-pale);border-top-color:var(--moss);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;}
+    .error-state{text-align:center;padding:2rem;background:#fdd8d8;border-radius:8px;color:var(--danger-red);}
+
+    footer{text-align:center;padding:2rem 1rem;font-size:.75rem;color:var(--ink-light);opacity:.6;border-top:1px solid var(--card-border);}
+    footer a{color:var(--moss);text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+
+    @media(max-width:480px){
+      header{padding:1.5rem 1rem 2rem;}
+      .tonight-card{padding:1.25rem;}
+      .tonight-metrics{grid-template-columns:repeat(2,1fr);}
+      .signup-form{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <button id="lang-btn" onclick="toggleLang()">EN</button>
+  <div class="header-eyebrow">DatAgronomist · Halle (Saale)</div>
+  <h1>Frost<em>wächter</em></h1>
+  <div class="header-sub" id="header-sub">Inversionsfrost-Vorhersage für Ihren Garten · 7-Tage-Prognose</div>
+</header>
+
+<main>
+  <div class="update-time" id="update-time">Daten werden geladen…</div>
+  <div id="alert-banner"></div>
+
+  <div class="loading-state" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loading-text">Wetterdaten werden abgerufen…</div>
+  </div>
+
+  <div id="content" style="display:none">
+
+    <!-- Tonight -->
+    <div class="tonight-card">
+      <div class="tonight-label" id="t-label">Diese Nacht</div>
+      <div class="tonight-title" id="tonight-date">—</div>
+      <div class="risk-gauge">
+        <div class="risk-dial">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(244,239,228,0.1)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" id="risk-arc"
+              stroke="#4a7c59" stroke-width="8"
+              stroke-dasharray="0 251" stroke-dashoffset="63"
+              stroke-linecap="round" transform="rotate(-90 50 50)"
+              style="transition:stroke-dasharray 1s ease,stroke .5s ease"/>
+          </svg>
+          <div class="risk-number">
+            <span class="risk-score-big" id="risk-score-display">0</span>
+            <span class="risk-score-max">/10</span>
+          </div>
+        </div>
+        <div class="risk-details">
+          <div class="risk-label-big" id="risk-label">—</div>
+          <div class="risk-advice" id="risk-advice">—</div>
+        </div>
+      </div>
+      <div class="tonight-metrics" id="tonight-metrics"></div>
+    </div>
+
+    <!-- 7-day -->
+    <div class="section-heading" id="h-forecast">7-Tage-Frostrisiko</div>
+    <div class="forecast-grid" id="forecast-grid"></div>
+
+    <!-- Chart tabs -->
+    <div class="section-heading" id="h-chart">Temperaturverlauf &amp; Frostrisiko</div>
+    <div class="chart-container">
+      <div class="chart-tabs">
+        <button class="chart-tab active" onclick="switchChart('forecast')" id="tab-forecast">Vorhersage</button>
+        <button class="chart-tab" onclick="switchChart('history')" id="tab-history">Historische Validierung</button>
+      </div>
+      <div class="historical-note" id="hist-note" style="display:none"></div>
+      <div class="chart-wrapper"><canvas id="temp-chart"></canvas></div>
+    </div>
+
+    <!-- Conditions -->
+    <div class="section-heading" id="h-conditions">Bedingungsanalyse — Heute Nacht</div>
+    <div class="conditions-grid" id="conditions-grid"></div>
+
+    <!-- Soil temperature deep-dive -->
+    <div class="section-heading" id="h-soil">Bodentemperatur-Analyse (DWD-Modell)</div>
+    <div class="info-box" id="soil-analysis-box"></div>
+
+    <!-- What is inversion frost -->
+    <div class="section-heading" id="h-what">Was ist Inversionsfrost?</div>
+    <div class="info-box" id="inversion-info-box"></div>
+
+    <!-- Protection tips -->
+    <div class="section-heading" id="h-tips">Schutzmaßnahmen</div>
+    <div class="info-box" id="tips-box"></div>
+
+    <!-- Email signup -->
+    <div class="section-heading" id="h-alerts">Frostwarnungen per E-Mail</div>
+    <div class="signup-box">
+      <h3 id="signup-title">Kostenloser Frostalert für Halle</h3>
+      <p id="signup-desc">Erhalten Sie eine E-Mail-Warnung, wenn Inversionsfrost vorhergesagt wird. Nur bei Risiko ≥ 6/10. Kein Spam.</p>
+      <!-- Netlify Forms: add data-netlify="true" — Netlify detects and activates this form at build time -->
+      <form name="frost-alert-signup" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSignup(event)" class="signup-form" id="signup-form">
+        <input type="hidden" name="form-name" value="frost-alert-signup"/>
+        <input type="hidden" name="bot-field" style="display:none"/>
+        <input class="signup-input" type="email" name="email" id="signup-email" required placeholder="ihre@email.de"/>
+        <select class="signup-select" name="threshold" id="signup-threshold">
+          <option value="5">Ab Risiko 5/10</option>
+          <option value="6" selected>Ab Risiko 6/10</option>
+          <option value="7">Ab Risiko 7/10</option>
+          <option value="8">Nur Extrem (8+)</option>
+        </select>
+        <button type="submit" class="signup-btn" id="signup-btn">Anmelden</button>
+      </form>
+      <div class="signup-success" id="signup-success">✓ Angemeldet! Sie erhalten Warnungen ab dem gewählten Schwellenwert.</div>
+      <div class="signup-error" id="signup-error">Fehler beim Anmelden. Bitte erneut versuchen.</div>
+      <p class="privacy-note" id="privacy-note">Ihre E-Mail wird nur für Frostwarnungen verwendet und nie weitergegeben. Abmeldung jederzeit möglich.</p>
+    </div>
+
+  </div>
+
+  <div class="error-state" id="error" style="display:none">
+    ⚠️ Wetterdaten konnten nicht geladen werden. Bitte Internetverbindung prüfen.
+  </div>
+</main>
+
+<footer>
+  <span id="footer-data">Wetterdaten:</span>
+  <a href="https://open-meteo.com" target="_blank">Open-Meteo</a> ·
+  <span id="footer-model">DWD ICON-EU Modell</span> ·
+  Halle (Saale) 51.48°N 11.97°E ·
+  <a href="https://datAgronomist.com" target="_blank">DatAgronomist</a> /
+  <a href="https://anthea.farm" target="_blank">Anthea</a>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  i18n
+// ════════════════════════════════════════════════════════
+const T = {
+  de: {
+    langBtn:'EN', headerSub:'Inversionsfrost-Vorhersage für Ihren Garten · 7-Tage-Prognose',
+    loadingText:'Wetterdaten werden abgerufen…',
+    tLabel:'Diese Nacht', hForecast:'7-Tage-Frostrisiko',
+    hChart:'Temperaturverlauf & Frostrisiko',
+    tabForecast:'Vorhersage', tabHistory:'Historische Validierung',
+    hConditions:'Bedingungsanalyse — Heute Nacht',
+    hSoil:'Bodentemperatur-Analyse (DWD-Modell)',
+    hWhat:'Was ist Inversionsfrost?', hTips:'Schutzmaßnahmen',
+    hAlerts:'Frostwarnungen per E-Mail',
+    signupTitle:'Kostenloser Frostalert für Halle',
+    signupDesc:'Erhalten Sie eine E-Mail-Warnung, wenn Inversionsfrost vorhergesagt wird. Nur bei Risiko ≥ 6/10. Kein Spam.',
+    signupBtn:'Anmelden', signupSuccess:'✓ Angemeldet! Sie erhalten Warnungen ab dem gewählten Schwellenwert.',
+    signupError:'Fehler beim Anmelden. Bitte erneut versuchen.',
+    emailPlaceholder:'ihre@email.de',
+    privacyNote:'Ihre E-Mail wird nur für Frostwarnungen verwendet und nie weitergegeben.',
+    footerData:'Wetterdaten:', footerModel:'DWD ICON-EU Modell',
+    updatedAt:'Zuletzt aktualisiert', source:'Quelle',
+    tonight:'Diese Nacht', tonight_on:'Nacht auf',
+    days:['So','Mo','Di','Mi','Do','Fr','Sa'],
+    daysFull:['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+    months:['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+    today:'Heute',
+    riskNone:'Kein Frost', riskLow:'Geringes Risiko', riskModerate:'Mäßiges Risiko',
+    riskHigh:'Hohes Risiko', riskExtreme:'Extremes Risiko',
+    adviceNone:'Keine Schutzmaßnahmen notwendig. Pflanzen sind sicher.',
+    adviceLow:'Empfindliche Jungpflanzen vorsorglich abdecken.',
+    adviceModerate:'Vlies empfohlen. Kübelpflanzen reinbringen.',
+    adviceHigh:'Dringend abdecken! Alle empfindlichen Pflanzen schützen.',
+    adviceExtreme:'⚠️ Starker Inversionsfrost! Alle Pflanzen schützen oder einräumen.',
+    alertHigh:'<strong>Hinweis:</strong> Erhöhtes Frostrisiko heute Nacht. Empfindliche Pflanzen abdecken.',
+    alertExtreme:'<strong>Warnung:</strong> Extremes Inversionsfrostrisiko heute Nacht. Bitte alle Pflanzen schützen.',
+    mLabels:['Tiefsttemperatur','Bewölkung','Wind','Luftfeuchte','Bodentemp. 0cm','Bodentemp. 6cm'],
+    mUnits:['°C','%','m/s','%','°C','°C'],
+    condLabels:['Tiefsttemp.','Bewölkung','Windstille','Luftfeuchte'],
+    condHints:[
+      ['Unter Null!','Kritisch','Unkritisch'],
+      ['Klar → Frost!','Teils bewölkt','Bedeckt'],
+      ['Sehr still → Inversion','Schwacher Wind','Ausreichend Wind'],
+      ['Trocken → schnelle Abkühlung','Normal']
+    ],
+    soilAnalysis: (t2m, ts0, ts6, delta) => `
+      <h3>Bodentemperatur heute Nacht</h3>
+      <p>Das Modell (Open-Meteo / DWD ICON-EU) zeigt folgende Werte für die Bodennähe:</p>
+      <ul>
+        <li><strong>Lufttemperatur (2 m):</strong> ${t2m !== null ? t2m.toFixed(1) + ' °C' : '–'}</li>
+        <li><strong>Bodenoberfläche (0 cm):</strong> ${ts0 !== null ? ts0.toFixed(1) + ' °C' : '–'}</li>
+        <li><strong>Bodentiefe (6 cm):</strong> ${ts6 !== null ? ts6.toFixed(1) + ' °C' : '–'}</li>
+        ${delta !== null ? `<li><strong>Luft-Boden-Differenz:</strong> ${delta.toFixed(1)} °C 
+          ${delta > 2 ? '⚠️ — deutliche Inversion! Boden kühlt stärker aus als Messstation.' : '— Kein auffälliger Inversionseffekt.'}</li>` : ''}
+      </ul>
+      <p style="margin-top:.6rem;font-size:.8rem;opacity:.8">Die Differenz zwischen 2 m Lufttemperatur und Bodenoberfläche ist das zentrale Signal für Strahlungsfrost. Werte &gt; 2 °C deuten auf aktive Temperaturinversion hin.</p>
+    `,
+    inversionInfo: `
+      <h3>Strahlungsfrost durch Temperaturinversion</h3>
+      <p>Inversionsfrost entsteht <strong>nicht durch heranziehende Kaltluftmassen</strong>, sondern durch die nächtliche Ausstrahlung von Wärme vom Boden ins All — besonders unter klarem Himmel und bei Windstille.</p>
+      <ul>
+        <li><strong>Wolkenloser Himmel</strong> — keine Wolkendecke hält die Wärme zurück</li>
+        <li><strong>Windstille (&lt; 2 m/s)</strong> — kalte Luft sammelt sich am Boden</li>
+        <li><strong>Stabile Hochdrucklage</strong> — begünstigt klaren Himmel und ruhige Luft</li>
+        <li><strong>Inversion</strong> — am Boden kälter als in 2 m Höhe</li>
+      </ul>
+      <p style="margin-top:.75rem">⚠️ <strong>Gefährlich:</strong> Die offizielle Wettervorhersage kann +2–3 °C zeigen, während Bodennähe bereits friert.</p>
+    `,
+    tipsContent: `
+      <h3>So schützen Sie Ihren Garten</h3>
+      <ul>
+        <li><strong>Vlies / Flies:</strong> Jungpflanzen abdecken — reduziert Temperaturverlust um 2–4 °C</li>
+        <li><strong>Bewässerung abends:</strong> Feuchte Erde verliert langsamer Wärme</li>
+        <li><strong>Mulch:</strong> Bodennahe Wärme wird gespeichert (Erdbeeren!)</li>
+        <li><strong>Hochbeete:</strong> Früher warm, früher gefährdet — immer abdecken</li>
+        <li><strong>Kübelpflanzen:</strong> Reinbringen oder an eine südliche Mauer stellen</li>
+        <li><strong>Latente Wärme:</strong> Pflanzen mit Wasser besprühen — Gefrieren setzt Wärme frei</li>
+      </ul>
+    `,
+    histNote: (days) => `Vergleich der letzten ${days} Tage: tatsächlich gemessene Tiefsttemperaturen vs. berechneter Risikowert. Zeigt die Genauigkeit des Algorithmus.`,
+    histChartLabel1: 'Tatsächl. Tiefsttemp. (°C)',
+    histChartLabel2: 'Risiko-Score (0–10)',
+    forecastChartLabel1: 'Vorhers. Tiefsttemp. (°C)',
+    forecastChartLabel2: 'Frostrisiko-Score',
+    thresholdLabels: ['Ab Risiko 5/10','Ab Risiko 6/10','Ab Risiko 7/10','Nur Extrem (8+)'],
+    thresholdValues: ['5','6','7','8'],
+  },
+  en: {
+    langBtn:'DE', headerSub:'Inversion frost forecast for your garden · 7-day outlook',
+    loadingText:'Fetching weather data…',
+    tLabel:'Tonight', hForecast:'7-Day Frost Risk',
+    hChart:'Temperature Trend & Frost Risk',
+    tabForecast:'Forecast', tabHistory:'Historical Validation',
+    hConditions:'Conditions Analysis — Tonight',
+    hSoil:'Soil Temperature Analysis (DWD Model)',
+    hWhat:'What is Inversion Frost?', hTips:'Protective Measures',
+    hAlerts:'Frost Warnings by Email',
+    signupTitle:'Free Frost Alert for Halle',
+    signupDesc:'Receive an email warning when inversion frost is predicted. Only when risk ≥ 6/10. No spam.',
+    signupBtn:'Subscribe', signupSuccess:'✓ Subscribed! You will receive warnings above your chosen threshold.',
+    signupError:'Sign-up failed. Please try again.',
+    emailPlaceholder:'your@email.com',
+    privacyNote:'Your email is used only for frost warnings and never shared.',
+    footerData:'Weather data:', footerModel:'DWD ICON-EU Model',
+    updatedAt:'Last updated', source:'Source',
+    tonight:'Tonight', tonight_on:'Night of',
+    days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    daysFull:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    today:'Today',
+    riskNone:'No Frost', riskLow:'Low Risk', riskModerate:'Moderate Risk',
+    riskHigh:'High Risk', riskExtreme:'Extreme Risk',
+    adviceNone:'No protective measures needed. Plants are safe.',
+    adviceLow:'Sensitive seedlings: cover as a precaution.',
+    adviceModerate:'Fleece recommended. Bring in potted plants.',
+    adviceHigh:'Cover urgently! Protect all sensitive plants.',
+    adviceExtreme:'⚠️ Severe inversion frost! Protect or bring in all plants.',
+    alertHigh:'<strong>Notice:</strong> Elevated frost risk tonight. Cover sensitive plants.',
+    alertExtreme:'<strong>Warning:</strong> Extreme inversion frost risk tonight. Protect all plants.',
+    mLabels:['Min Temperature','Cloud Cover','Wind','Humidity','Soil Temp. 0cm','Soil Temp. 6cm'],
+    mUnits:['°C','%','m/s','%','°C','°C'],
+    condLabels:['Min Temp.','Cloud Cover','Wind Calm','Humidity'],
+    condHints:[
+      ['Below zero!','Critical','Safe'],
+      ['Clear → Frost!','Partly cloudy','Overcast'],
+      ['Very calm → Inversion','Light wind','Sufficient wind'],
+      ['Dry → fast cooling','Normal']
+    ],
+    soilAnalysis: (t2m, ts0, ts6, delta) => `
+      <h3>Soil Temperature Tonight</h3>
+      <p>Model data (Open-Meteo / DWD ICON-EU) shows the following near-surface values:</p>
+      <ul>
+        <li><strong>Air temperature (2 m):</strong> ${t2m !== null ? t2m.toFixed(1) + ' °C' : '–'}</li>
+        <li><strong>Soil surface (0 cm):</strong> ${ts0 !== null ? ts0.toFixed(1) + ' °C' : '–'}</li>
+        <li><strong>Soil depth (6 cm):</strong> ${ts6 !== null ? ts6.toFixed(1) + ' °C' : '–'}</li>
+        ${delta !== null ? `<li><strong>Air–soil delta:</strong> ${delta.toFixed(1)} °C
+          ${delta > 2 ? '⚠️ — significant inversion! Soil cooling faster than the weather station.' : '— No notable inversion effect.'}</li>` : ''}
+      </ul>
+      <p style="margin-top:.6rem;font-size:.8rem;opacity:.8">The difference between 2 m air temperature and the soil surface is the key signal for radiation frost. Values &gt; 2 °C indicate active temperature inversion.</p>
+    `,
+    inversionInfo: `
+      <h3>Radiation Frost from Temperature Inversion</h3>
+      <p>Inversion frost occurs <strong>not because of incoming cold air masses</strong>, but through night-time radiative cooling of the ground — especially under clear skies and calm winds.</p>
+      <ul>
+        <li><strong>Clear sky</strong> — no cloud blanket to retain ground heat</li>
+        <li><strong>Calm wind (&lt; 2 m/s)</strong> — cold air pools near the surface</li>
+        <li><strong>High pressure</strong> — promotes clear skies and stable air</li>
+        <li><strong>Inversion</strong> — ground colder than 2 m height where stations measure</li>
+      </ul>
+      <p style="margin-top:.75rem">⚠️ <strong>Dangerous:</strong> Official forecasts may show +2–3 °C while plants at ground level are already freezing.</p>
+    `,
+    tipsContent: `
+      <h3>How to Protect Your Garden</h3>
+      <ul>
+        <li><strong>Fleece / row cover:</strong> Cover seedlings — reduces temperature loss by 2–4 °C</li>
+        <li><strong>Evening watering:</strong> Moist soil loses heat more slowly</li>
+        <li><strong>Mulch:</strong> Retains near-surface warmth (especially strawberries)</li>
+        <li><strong>Raised beds:</strong> Warm up faster but also more frost-exposed — always cover</li>
+        <li><strong>Potted plants:</strong> Bring inside or place against a south-facing wall</li>
+        <li><strong>Latent heat:</strong> Misting plants — freezing releases heat</li>
+      </ul>
+    `,
+    histNote: (days) => `Comparison of the last ${days} days: actual measured minimum temperatures vs. computed risk score. Shows algorithm accuracy.`,
+    histChartLabel1: 'Actual Min Temp. (°C)',
+    histChartLabel2: 'Risk Score (0–10)',
+    forecastChartLabel1: 'Forecast Min Temp. (°C)',
+    forecastChartLabel2: 'Frost Risk Score',
+    thresholdLabels: ['From Risk 5/10','From Risk 6/10','From Risk 7/10','Extreme only (8+)'],
+    thresholdValues: ['5','6','7','8'],
+  }
+};
+
+let lang = 'de';
+let forecastChart = null;
+let forecastDays = [];
+let histDays = [];
+let currentChartMode = 'forecast';
+
+// ════════════════════════════════════════════════════════
+//  Config
+// ════════════════════════════════════════════════════════
+const LAT = 51.48, LON = 11.97;
+const FORECAST_API =
+  `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}` +
+  `&hourly=temperature_2m,dew_point_2m,relative_humidity_2m,wind_speed_10m,cloud_cover,soil_temperature_0cm,soil_temperature_6cm` +
+  `&daily=sunrise,sunset,temperature_2m_min,temperature_2m_max` +
+  `&timezone=Europe%2FBerlin&forecast_days=7`;
+
+function getHistoricalAPI() {
+  const end = new Date(); end.setDate(end.getDate() - 3);
+  const start = new Date(end); start.setDate(start.getDate() - 13);
+  const fmt = d => d.toISOString().split('T')[0];
+  return `https://archive-api.open-meteo.com/v1/archive?latitude=${LAT}&longitude=${LON}` +
+    `&hourly=temperature_2m,cloud_cover,wind_speed_10m,relative_humidity_2m,soil_temperature_0cm,soil_temperature_6cm` +
+    `&daily=temperature_2m_min,sunrise,sunset` +
+    `&start_date=${fmt(start)}&end_date=${fmt(end)}&timezone=Europe%2FBerlin`;
+}
+
+// ════════════════════════════════════════════════════════
+//  Risk scoring
+// ════════════════════════════════════════════════════════
+function computeRisk(minTemp2m, avgCloud, avgWind, avgHumidity, minSoilTemp) {
+  let score = 0;
+  if (minTemp2m <= 0)       score += 4;
+  else if (minTemp2m <= 1)  score += 3;
+  else if (minTemp2m <= 3)  score += 2;
+  else if (minTemp2m <= 5)  score += 1;
+
+  if (avgCloud < 10)        score += 3;
+  else if (avgCloud < 25)   score += 2;
+  else if (avgCloud < 45)   score += 1;
+  else if (avgCloud > 70)   score -= 1;
+
+  if (avgWind < 1)          score += 2;
+  else if (avgWind < 2)     score += 1.5;
+  else if (avgWind < 3.5)   score += 0.5;
+  else if (avgWind > 5)     score -= 0.5;
+
+  if (avgHumidity < 55)     score += 0.5;
+  else if (avgHumidity > 85) score -= 0.5;
+
+  if (minSoilTemp !== null && minSoilTemp < minTemp2m - 1.5) score += 1;
+  else if (minSoilTemp !== null && minSoilTemp < minTemp2m - 0.5) score += 0.5;
+
+  return Math.round(Math.max(0, Math.min(10, score)) * 10) / 10;
+}
+
+function riskClass(s) {
+  if (s <= 1.5) return 'none';
+  if (s <= 3.5) return 'low';
+  if (s <= 5.5) return 'moderate';
+  if (s <= 7.5) return 'high';
+  return 'extreme';
+}
+function riskColor(cls) {
+  return {none:'#4a7c59',low:'#8ab84e',moderate:'#c9a020',high:'#d4621a',extreme:'#b83232'}[cls];
+}
+const t = () => T[lang];
+
+// ════════════════════════════════════════════════════════
+//  Night-hours extraction
+// ════════════════════════════════════════════════════════
+function getNightIndices(hourlyData, sunriseStr, sunsetStr, dateStr) {
+  const sunsetH = parseInt(sunsetStr.split('T')[1].split(':')[0]);
+  const sunriseH = parseInt(sunriseStr.split('T')[1].split(':')[0]);
+  const [y,m,d] = dateStr.split('-').map(Number);
+  const nd = new Date(y,m-1,d+1);
+  const nextDate = `${nd.getFullYear()}-${String(nd.getMonth()+1).padStart(2,'0')}-${String(nd.getDate()).padStart(2,'0')}`;
+  const idx = [];
+  hourlyData.time.forEach((time, i) => {
+    const [day, hr] = time.split('T');
+    const h = parseInt(hr.split(':')[0]);
+    if ((day === dateStr && h >= sunsetH) || (day === nextDate && h <= sunriseH)) idx.push(i);
+  });
+  return idx;
+}
+
+function avg(arr) { return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0; }
+function minOf(arr) { return arr.length ? Math.min(...arr) : null; }
+
+function buildDayForecast(data, dayIdx) {
+  const { hourly, daily } = data;
+  const dateStr    = daily.time[dayIdx];
+  const idx        = getNightIndices(hourly, daily.sunrise[dayIdx], daily.sunset[dayIdx], dateStr);
+  const temps      = idx.map(i => hourly.temperature_2m[i]).filter(v => v != null);
+  const clouds     = idx.map(i => hourly.cloud_cover[i]).filter(v => v != null);
+  const winds      = idx.map(i => hourly.wind_speed_10m[i]).filter(v => v != null);
+  const hum        = idx.map(i => hourly.relative_humidity_2m[i]).filter(v => v != null);
+  const soil0      = idx.map(i => hourly.soil_temperature_0cm[i]).filter(v => v != null);
+  const soil6      = idx.map(i => hourly.soil_temperature_6cm ? hourly.soil_temperature_6cm[i] : null).filter(v => v != null);
+  const minTemp    = minOf(temps);
+  const avgCloud   = avg(clouds);
+  const avgWind    = avg(winds);
+  const avgHum     = avg(hum);
+  const minSoil0   = minOf(soil0);
+  const minSoil6   = minOf(soil6);
+  const score      = computeRisk(minTemp, avgCloud, avgWind, avgHum, minSoil0);
+  return { dateStr, minTemp, avgCloud, avgWind, avgHum, minSoil0, minSoil6, score, cls: riskClass(score) };
+}
+
+// ════════════════════════════════════════════════════════
+//  Render functions
+// ════════════════════════════════════════════════════════
+function renderTonight(day) {
+  const L = t();
+  const col = riskColor(day.cls);
+  const [y,m,d] = day.dateStr.split('-').map(Number);
+  const date = new Date(y,m-1,d);
+  document.getElementById('tonight-date').textContent =
+    `${L.tonight_on} ${L.daysFull[date.getDay()]}, ${d}. ${L.months[m-1]}`;
+  document.getElementById('t-label').textContent = L.tLabel;
+
+  const circumference = 2 * Math.PI * 40;
+  const filled = (day.score / 10) * circumference;
+  const arc = document.getElementById('risk-arc');
+  arc.setAttribute('stroke-dasharray', `${filled} ${circumference - filled}`);
+  arc.setAttribute('stroke', col);
+
+  const disp = document.getElementById('risk-score-display');
+  disp.textContent = day.score.toFixed(1);
+  disp.style.color = col;
+
+  const riskLabels = { none: L.riskNone, low: L.riskLow, moderate: L.riskModerate, high: L.riskHigh, extreme: L.riskExtreme };
+  const advices = { none: L.adviceNone, low: L.adviceLow, moderate: L.adviceModerate, high: L.adviceHigh, extreme: L.adviceExtreme };
+  document.getElementById('risk-label').textContent = riskLabels[day.cls];
+  document.getElementById('risk-advice').textContent = advices[day.cls];
+
+  const banner = document.getElementById('alert-banner');
+  if (day.cls === 'extreme' || day.cls === 'high') {
+    banner.style.display = 'block';
+    const isExtreme = day.cls === 'extreme';
+    banner.style.background = isExtreme ? '#fdd8d8' : '#fde8d0';
+    banner.style.color = isExtreme ? '#8a0000' : '#a04000';
+    banner.style.borderColor = isExtreme ? '#b83232' : '#d4621a';
+    banner.innerHTML = `${isExtreme ? '🌡️' : '⚠️'} ${isExtreme ? L.alertExtreme : L.alertHigh}`;
+  } else {
+    banner.style.display = 'none';
+  }
+
+  // Soil delta
+  const delta = (day.minSoil0 !== null && day.minTemp !== null) ? day.minTemp - day.minSoil0 : null;
+  const mVals = [day.minTemp, day.avgCloud, day.avgWind, day.avgHum, day.minSoil0, day.minSoil6];
+  document.getElementById('tonight-metrics').innerHTML = L.mLabels.map((lbl, i) => {
+    const v = mVals[i];
+    const soilAlert = (i === 4 && delta !== null && delta > 2) ? 'soil-alert' : '';
+    return `<div class="metric-chip ${soilAlert}">
+      <div class="label">${lbl}</div>
+      <div class="value">${v !== null ? (i === 0 || i >= 4 ? v.toFixed(1) : Math.round(v)) : '–'}<span class="unit"> ${L.mUnits[i]}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderForecastGrid(days) {
+  const L = t();
+  document.getElementById('forecast-grid').innerHTML = days.map((day, i) => {
+    const [y,m,d] = day.dateStr.split('-').map(Number);
+    const date = new Date(y,m-1,d);
+    const cloudIcon = day.avgCloud < 25 ? '☀️' : day.avgCloud < 60 ? '⛅' : '☁️';
+    const windIcon = day.avgWind < 2 ? '🍃' : day.avgWind < 5 ? '💨' : '🌬️';
+    const riskLabels = { none:L.riskNone, low:L.riskLow, moderate:L.riskModerate, high:L.riskHigh, extreme:L.riskExtreme };
+    const soilStr = day.minSoil0 !== null ? `${day.minSoil0.toFixed(0)}°C` : '';
+    return `<div class="day-card risk-${day.cls}">
+      <div class="day-name">${i === 0 ? L.today : L.days[date.getDay()]} ${d}.${m}.</div>
+      <div class="day-temp-min">${day.minTemp !== null ? day.minTemp.toFixed(0) : '–'}<span class="day-temp-unit">°C</span></div>
+      ${soilStr ? `<div class="day-soil">⬇ ${soilStr}</div>` : ''}
+      <div class="day-icons">${cloudIcon}${windIcon}</div>
+      <div class="day-risk-badge">${riskLabels[day.cls]}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderConditions(day) {
+  const L = t();
+  const vals = [
+    { v: day.minTemp, fill: day.minTemp < 0 ? 100 : day.minTemp < 5 ? 65 : 20,
+      color: day.minTemp < 0 ? '#b83232' : day.minTemp < 3 ? '#d4621a' : '#4a7c59',
+      hintIdx: day.minTemp < 0 ? 0 : day.minTemp < 3 ? 1 : 2,
+      display: (day.minTemp !== null ? day.minTemp.toFixed(1) + ' °C' : '–') },
+    { v: day.avgCloud, fill: Math.max(0, 100 - day.avgCloud),
+      color: day.avgCloud < 20 ? '#b83232' : day.avgCloud < 50 ? '#d4621a' : '#4a7c59',
+      hintIdx: day.avgCloud < 20 ? 0 : day.avgCloud < 50 ? 1 : 2,
+      display: Math.round(day.avgCloud) + ' %' },
+    { v: day.avgWind, fill: Math.max(0, 100 - (day.avgWind / 8) * 100),
+      color: day.avgWind < 1.5 ? '#b83232' : day.avgWind < 3 ? '#d4621a' : '#4a7c59',
+      hintIdx: day.avgWind < 1.5 ? 0 : day.avgWind < 3 ? 1 : 2,
+      display: day.avgWind.toFixed(1) + ' m/s' },
+    { v: day.avgHum, fill: day.avgHum,
+      color: day.avgHum < 55 ? '#d4621a' : '#4a7c59',
+      hintIdx: day.avgHum < 55 ? 0 : 1,
+      display: Math.round(day.avgHum) + ' %' },
+  ];
+  document.getElementById('conditions-grid').innerHTML = vals.map((c, i) => `
+    <div class="condition-bar">
+      <div class="cond-label">${L.condLabels[i]}</div>
+      <div class="cond-value" style="color:${c.color}">${c.display}</div>
+      <div class="cond-hint" style="color:${c.color}">${L.condHints[i][c.hintIdx]}</div>
+      <div class="cond-bar-track"><div class="cond-bar-fill" style="width:${c.fill}%;background:${c.color}"></div></div>
+    </div>`).join('');
+}
+
+function renderSoilBox(day) {
+  const L = t();
+  const delta = (day.minSoil0 !== null && day.minTemp !== null) ? day.minTemp - day.minSoil0 : null;
+  document.getElementById('soil-analysis-box').innerHTML = L.soilAnalysis(day.minTemp, day.minSoil0, day.minSoil6, delta);
+}
+
+function renderInfoBoxes() {
+  const L = t();
+  document.getElementById('inversion-info-box').innerHTML = L.inversionInfo;
+  document.getElementById('tips-box').innerHTML = L.tipsContent;
+}
+
+function renderSignup() {
+  const L = t();
+  document.getElementById('signup-title').textContent = L.signupTitle;
+  document.getElementById('signup-desc').textContent = L.signupDesc;
+  document.getElementById('signup-btn').textContent = L.signupBtn;
+  document.getElementById('signup-email').placeholder = L.emailPlaceholder;
+  document.getElementById('privacy-note').textContent = L.privacyNote;
+  const sel = document.getElementById('signup-threshold');
+  sel.innerHTML = L.thresholdLabels.map((lbl, i) =>
+    `<option value="${L.thresholdValues[i]}"${i===1?' selected':''}>${lbl}</option>`
+  ).join('');
+}
+
+function renderSectionHeadings() {
+  const L = t();
+  document.getElementById('header-sub').textContent = L.headerSub;
+  document.getElementById('h-forecast').childNodes[0].nodeValue = L.hForecast + ' ';
+  document.getElementById('h-chart').childNodes[0].nodeValue = L.hChart + ' ';
+  document.getElementById('h-conditions').childNodes[0].nodeValue = L.hConditions + ' ';
+  document.getElementById('h-soil').childNodes[0].nodeValue = L.hSoil + ' ';
+  document.getElementById('h-what').childNodes[0].nodeValue = L.hWhat + ' ';
+  document.getElementById('h-tips').childNodes[0].nodeValue = L.hTips + ' ';
+  document.getElementById('h-alerts').childNodes[0].nodeValue = L.hAlerts + ' ';
+  document.getElementById('tab-forecast').textContent = L.tabForecast;
+  document.getElementById('tab-history').textContent = L.tabHistory;
+  document.getElementById('lang-btn').textContent = L.langBtn;
+  document.getElementById('loading-text').textContent = L.loadingText;
+  document.getElementById('footer-data').textContent = L.footerData;
+  document.getElementById('footer-model').textContent = L.footerModel;
+}
+
+// ════════════════════════════════════════════════════════
+//  Chart
+// ════════════════════════════════════════════════════════
+function buildChartData(days, isHistory) {
+  const L = t();
+  const labels = days.map(d => {
+    const [y,m,dd] = d.dateStr.split('-').map(Number);
+    const dt = new Date(y,m-1,dd);
+    return `${L.days[dt.getDay()]} ${dd}.${m}.`;
+  });
+  const temps  = days.map(d => d.minTemp !== null ? +d.minTemp.toFixed(1) : null);
+  const scores = days.map(d => d.score);
+  const colors = days.map(d => riskColor(d.cls));
+  return {
+    labels, temps, scores, colors,
+    label1: isHistory ? L.histChartLabel1 : L.forecastChartLabel1,
+    label2: isHistory ? L.histChartLabel2 : L.forecastChartLabel2,
+  };
+}
+
+function drawChart(days, isHistory) {
+  const cd = buildChartData(days, isHistory);
+  const ctx = document.getElementById('temp-chart').getContext('2d');
+  if (forecastChart) { forecastChart.destroy(); forecastChart = null; }
+  forecastChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: cd.labels,
+      datasets: [
+        { type:'line', label:cd.label1, data:cd.temps,
+          borderColor:'#1e140a', backgroundColor:'transparent', borderWidth:2,
+          pointBackgroundColor:cd.colors, pointRadius:5, pointHoverRadius:7,
+          tension:.3, yAxisID:'y', order:1 },
+        { type:'bar', label:cd.label2, data:cd.scores,
+          backgroundColor:cd.colors.map(c=>c+'55'), borderColor:cd.colors,
+          borderWidth:1, borderRadius:4, yAxisID:'y2', order:2 }
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{labels:{font:{family:"'Source Serif 4',Georgia,serif",size:11},color:'#5a4232',boxWidth:12}},
+        tooltip:{backgroundColor:'#1e140a',titleColor:'#f4efe4',bodyColor:'#d4c8b2',
+          padding:10,titleFont:{family:"'Playfair Display',serif",size:13}}
+      },
+      scales:{
+        y:{position:'left',title:{display:true,text:'°C',color:'#5a4232',font:{size:10}},
+          grid:{color:'rgba(90,66,50,.08)'},ticks:{color:'#5a4232',font:{size:10}}},
+        y2:{position:'right',min:0,max:10,title:{display:true,text:'Score',color:'#5a4232',font:{size:10}},
+          grid:{drawOnChartArea:false},ticks:{color:'#5a4232',font:{size:10}}},
+        x:{grid:{color:'rgba(90,66,50,.06)'},ticks:{color:'#5a4232',font:{size:10}}}
+      }
+    }
+  });
+}
+
+function switchChart(mode) {
+  currentChartMode = mode;
+  document.getElementById('tab-forecast').classList.toggle('active', mode === 'forecast');
+  document.getElementById('tab-history').classList.toggle('active', mode === 'history');
+  const histNote = document.getElementById('hist-note');
+  if (mode === 'history') {
+    if (histDays.length === 0) {
+      histNote.style.display = 'block';
+      histNote.textContent = lang === 'de' ? 'Historische Daten werden geladen…' : 'Loading historical data…';
+      loadHistory();
+    } else {
+      histNote.style.display = 'block';
+      histNote.textContent = t().histNote(histDays.length);
+      drawChart(histDays, true);
+    }
+  } else {
+    histNote.style.display = 'none';
+    drawChart(forecastDays, false);
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  Historical data
+// ════════════════════════════════════════════════════════
+async function loadHistory() {
+  try {
+    const res = await fetch(getHistoricalAPI());
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    histDays = data.daily.time.map((_, i) => buildDayForecast(data, i));
+    document.getElementById('hist-note').textContent = t().histNote(histDays.length);
+    drawChart(histDays, true);
+  } catch(e) {
+    document.getElementById('hist-note').textContent =
+      lang === 'de' ? 'Historische Daten konnten nicht geladen werden.' : 'Historical data could not be loaded.';
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  Email signup
+// ════════════════════════════════════════════════════════
+async function handleSignup(e) {
+  e.preventDefault();
+  const btn = document.getElementById('signup-btn');
+  const success = document.getElementById('signup-success');
+  const errEl = document.getElementById('signup-error');
+  btn.disabled = true;
+  btn.textContent = '…';
+  success.style.display = 'none';
+  errEl.style.display = 'none';
+
+  try {
+    const form = document.getElementById('signup-form');
+    const formData = new FormData(form);
+    const res = await fetch('/', { method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body: new URLSearchParams(formData).toString() });
+    if (res.ok) {
+      success.textContent = t().signupSuccess;
+      success.style.display = 'block';
+      form.reset();
+    } else {
+      throw new Error();
+    }
+  } catch(err) {
+    errEl.textContent = t().signupError;
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = t().signupBtn;
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  Language toggle
+// ════════════════════════════════════════════════════════
+function toggleLang() {
+  lang = lang === 'de' ? 'en' : 'de';
+  document.documentElement.lang = lang;
+  renderSectionHeadings();
+  if (forecastDays.length) {
+    renderTonight(forecastDays[0]);
+    renderForecastGrid(forecastDays);
+    renderConditions(forecastDays[0]);
+    renderSoilBox(forecastDays[0]);
+    renderInfoBoxes();
+    renderSignup();
+    if (currentChartMode === 'forecast') drawChart(forecastDays, false);
+    else if (histDays.length) {
+      drawChart(histDays, true);
+      document.getElementById('hist-note').textContent = t().histNote(histDays.length);
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  Init
+// ════════════════════════════════════════════════════════
+async function init() {
+  renderSectionHeadings();
+  try {
+    const res = await fetch(FORECAST_API);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    forecastDays = data.daily.time.map((_, i) => buildDayForecast(data, i));
+
+    renderTonight(forecastDays[0]);
+    renderForecastGrid(forecastDays);
+    renderConditions(forecastDays[0]);
+    renderSoilBox(forecastDays[0]);
+    renderInfoBoxes();
+    renderSignup();
+    drawChart(forecastDays, false);
+
+    const now = new Date();
+    const L = t();
+    document.getElementById('update-time').textContent =
+      `${L.updatedAt}: ${now.toLocaleTimeString(lang === 'de' ? 'de-DE' : 'en-GB', {hour:'2-digit',minute:'2-digit'})} · ${L.source}: Open-Meteo`;
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } catch(e) {
+    console.error(e);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
+  }
+}
+
+init();
+</script>
+</body>
+</html>

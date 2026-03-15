@@ -1,0 +1,12 @@
+[build]
+  publish = "public"          # Hugo's output directory
+  command = "hugo --minify"
+
+[functions]
+  directory = "netlify/functions"
+
+# Ensure the static tool page is served as-is (not processed by Hugo)
+[[headers]]
+  for = "/tools/frostwatcher/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

@@ -29,6 +29,11 @@ publishDir = "docs"
     name = "Projects"
     url = "/projects/"
     weight = 3
+	
+  [[menu.main]]
+    name   = "Frostwächter"
+    url    = "/tools/frostwatcher/"
+    weight = 4
 
 
 
