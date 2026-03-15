@@ -1,5 +1,5 @@
 [build]
-  publish = "public"          # Hugo's output directory
+  publish = "docs"          # Hugo's output directory
   command = "hugo --minify"
 
 [functions]
