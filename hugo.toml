@@ -6,34 +6,82 @@ defaultContentLanguage = "en"
 enableEmoji = true
 publishDir = "docs"
 
+# --- SEO & metadata ---
 [params]
   description = "Science, agriculture, and society"
+  author = "Rosario Iacono"
   ShowReadingTime = true
   ShowShareButtons = false
   ShowPostNavLinks = true
   ShowCodeCopyButtons = true
+  ShowBreadCrumbs = true
+  ShowToc = true
   defaultTheme = "auto"
+  DateFormat = "January 2, 2006"
+
+  # --- Homepage: this is what's missing right now ---
+  [params.homeInfoParams]
+    Title = "Datagronomist"
+    Content = """
+I'm Rosario — plant biologist, agronomist, and founder of [Anthea](https://anthea.bio). \
+I write about agriculture, data, open science, and what it means to do research \
+that matters beyond the lab. Learning in public, at the edge of soil and code.
+"""
+
+  # --- Profile image on homepage (optional but recommended) ---
+  # Place your photo at static/images/profile.jpg
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/YOUR_GITHUB"
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://linkedin.com/in/YOUR_LINKEDIN"
+  [[params.socialIcons]]
+    name = "rss"
+    url = "index.xml"
+
+# --- Cover images for posts ---
+[params.cover]
+  hidden = false
+  hiddenInList = false
+  hiddenInSingle = false
+
+# --- Assets (enables syntax highlighting) ---
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
 
 [menu]
   [[menu.main]]
     name = "Blog"
     url = "/posts/"
     weight = 1
-
   [[menu.main]]
     name = "About"
     url = "/about/"
     weight = 2
-	
   [[menu.main]]
     name = "Projects"
     url = "/projects/"
     weight = 3
-	
   [[menu.main]]
     name   = "Frostwächter"
     url    = "/tools/frostwatcher/"
     weight = 4
+  [[menu.main]]
+    name = "Conversations"
+    url = "/podcast/"
+    weight = 4
+  [[menu.main]]
+    name = "Profile"
+    url = "/cv/"
+    weight = 5
+  [[menu.main]]
+    name = "Publications"
+    url = "/publications/"
+    weight = 6
+
 
 
 
